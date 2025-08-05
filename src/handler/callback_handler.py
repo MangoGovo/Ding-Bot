@@ -12,6 +12,8 @@ class MainCallbackHandler(dingtalk_stream.ChatbotHandler):
         content = incoming_message.text.content.strip()
         incoming_message.sender_staff_id = None
         logger.info(f"收到消息: {content}")
+        # 处理全角字符
+        content = content.replace("％", "%")
         if content in botmsg.keys():
             self.reply_text(botmsg[content], incoming_message)
         return AckMessage.STATUS_OK, "OK"
